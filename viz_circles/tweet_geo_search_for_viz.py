@@ -22,10 +22,10 @@ searchTermShort = "series"
 
 
 # my keys, need all four of them. Use your own keys here.
-consumer_key = "ohaVzTnC95piiNDv967FBZNsC"
-consumer_secret = "FNXcMvYXYm2ZE1jK243XcheboNu2EUSexga1CP2xXHfpCfr8QO"
-token_key = "1246761-39k6SCDVPLh8yIzuzRDZCVzX2Sukll6e2gPyz3zNEB"
-token_secret = "MpO6F1Mb4VmD3mGsbsevepSKp3gI9VfCTigbMyz2oArcy"
+consumer_key = "INCLUDE YOUR CREDENTIALS"
+consumer_secret = "INCLUDE YOUR CREDENTIALS"
+token_key = "INCLUDE YOUR CREDENTIALS"
+token_secret = "INCLUDE YOUR CREDENTIALS"
 
 #
 # function to construct search url 
