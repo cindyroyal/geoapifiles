@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <script>
+
+     var map;
+
+     function makeMap(lat, long) {
+       var latlng = new google.maps.LatLng(lat, long);
+       var options = {
+         zoom: 5, //sets the zoom level of the map
+         center: latlng,
+       };
+
+       map = new google.maps.Map(document.getElementById("map"), options);
+     }
+
+     function printCoords() {
+       num_coords = $('table tbody tr').length
+       var cTable = document.getElementById("cTable")
+       for (i = 0; i < num_coords; i++)
+         lng = cTable.rows[i].cells[0].textContent
+         lat = cTable.rows[i].cells[1].textContent
+        document.write(lat + "\t, " + lng + "\n")
+     }					  
+
+     function placeMarkers() {
+       num_coords = $('table tbody tr').length
+       var cTable = document.getElementById("cTable")
+       for (i = 0; i < num_coords; i++) {
+         lng = cTable.rows[i].cells[0].textContent
+         lat = cTable.rows[i].cells[1].textContent
+	 text = cTable.rows[i].cells[2].textContent
+         var myLatlng = new google.maps.LatLng(lat,lng);
+
+	 var marker = new google.maps.Marker({
+	   position: myLatlng,
+	   map: map,
+	   title: text
+	 });
+       }
+     }					  
+
+//sets the center of the map
+   $(document).ready(function () {
+     makeMap(39, -98)
+     placeMarkers()
+   });
+
+  </script>
+</head>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <script>
+
+   var map;
+   var city_geocodes = [];
+   var city_activity = [];
+   var colors = ["#FF0000", "blue", "orange", "brown", "violet"]
+   
+   function makeMap(lat, long) {
+     var latlng = new google.maps.LatLng(lat, long);
+     var options = {
+       zoom: 4,
+       center: latlng,
+     };
+     map = new google.maps.Map(document.getElementById("map"), options);
+  
+     
+     }
+   
+   function getGeoCodes() {
+       num_codes = $('table tbody tr').length
+       var cTable = document.getElementById("cTable")
+       for (i = 0; i < num_codes; i++) {
+         lng = cTable.rows[i].cells[1].textContent
+         lat = cTable.rows[i].cells[2].textContent
+         city_geocodes[i] = new google.maps.LatLng(lat, lng),
+         city_activity[i] = cTable.rows[i].cells[0].textContent
+       }
+   }					  
+
+   
+   function placeCircles() {
+     num_codes = $('table tbody tr').length
+     for (i = 0; i < num_codes; i++) {
+       var options = {
+	 strokeColor: colors[i],
+	 strokeOpacity: 0.8,
+	 strokeWeight: 2,
+	 fillColor: colors[i],
+	 fillOpacity: 0.50,
+	 map: map,
+	 center: city_geocodes[i],
+	 radius: 7500 * city_activity[i]
+       };
+
+       cityCircle = new google.maps.Circle(options);
+     }
+   }
+
+
+   $(document).ready(function () {
+     //$('#cTable').hide()
+     
+     makeMap(39.50, -98.35)
+     getGeoCodes()
+     placeCircles()
+
+   });
+
+  </script>
+</head>
+
+<style>iframe { width: 100%; height: 468px }</style><body>
+<div id = "map" style="height: 512px"><iframe src="series_tweets_map.html"></iframe></div><table id = "cTable">
+<tr id = "city0">
+<td id = "radii">1.97693574959</td><td id = "lng">-122.3331</td><td id = "lat">47.6097</td>
+<td id = "sRadius">15mi</td>
+</tr>
+<tr id = "city1">
+<td id = "radii">0.164744645799</td><td id = "lng">-97.7500</td><td id = "lat">30.2500</td>
+<td id = "sRadius">15mi</td>
+</tr>
+<tr id = "city2">
+<td id = "radii">0.164744645799</td><td id = "lng">-95.21</td><td id = "lat">29.45</td>
+<td id = "sRadius">20mi</td>
+</tr>
+<tr id = "city3">
+<td id = "radii">2.30642504119</td><td id = "lng">-96.7967</td><td id = "lat">32.7758</td>
+<td id = "sRadius">20mi</td>
+</tr>
+<tr id = "city4">
+<td id = "radii">95.3871499176</td><td id = "lng">-74.0059</td><td id = "lat">40.7127</td>
+<td id = "sRadius">20mi</td>
+</tr>
+</table>
+</body>

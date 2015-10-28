@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <script>
+
+   var map;
+   var city_geocodes = [];
+   var city_activity = [];
+   var colors = ["#FF0000", "blue", "orange", "brown", "violet"]
+   
+   function makeMap(lat, long) {
+     var latlng = new google.maps.LatLng(lat, long);
+     var options = {
+       zoom: 4,
+       center: latlng,
+     };
+     map = new google.maps.Map(document.getElementById("map"), options);
+  
+     
+     }
+   
+   function getGeoCodes() {
+       num_codes = $('table tbody tr').length
+       var cTable = document.getElementById("cTable")
+       for (i = 0; i < num_codes; i++) {
+         lng = cTable.rows[i].cells[1].textContent
+         lat = cTable.rows[i].cells[2].textContent
+         city_geocodes[i] = new google.maps.LatLng(lat, lng),
+         city_activity[i] = cTable.rows[i].cells[0].textContent
+       }
+   }					  
+
+   
+   function placeCircles() {
+     num_codes = $('table tbody tr').length
+     for (i = 0; i < num_codes; i++) {
+       var options = {
+	 strokeColor: colors[i],
+	 strokeOpacity: 0.8,
+	 strokeWeight: 2,
+	 fillColor: colors[i],
+	 fillOpacity: 0.50,
+	 map: map,
+	 center: city_geocodes[i],
+	 radius: 7500 * city_activity[i]
+       };
+
+       cityCircle = new google.maps.Circle(options);
+     }
+   }
+
+
+   $(document).ready(function () {
+     //$('#cTable').hide()
+     
+     makeMap(39.50, -98.35)
+     getGeoCodes()
+     placeCircles()
+
+   });
+
+  </script>
+</head>
+
